@@ -57,6 +57,7 @@ public class DesignController extends HttpServlet  {
 		int price = Integer.parseInt(cost);
 		fablist=fabric.AddFabric();
 		s1.setPrice(fablist.get(price-1).getPrice());
+		System.out.println("hhhhhhhhhhhhhhhh");
 
 		ModelAndView model= null;
 		model = new ModelAndView("customize");
