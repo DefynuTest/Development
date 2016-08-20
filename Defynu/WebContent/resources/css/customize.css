@@ -104,23 +104,23 @@ margin-left:90px;
 	 left: 500px; 
 	 top: 108px; 
 	 position: absolute; 
-	 width: 744px;
+	 width: auto;
 	 height: auto;
 	 z-index:-5;
 } 
  #innercollar 
 { 
-	 left: 635px; 
-	 top: 89px; 
+	 left: 500px; 
+	 top: 109px; 
 	 position: absolute; 
-	 width: 175px;
-	 height: 46px;
+	 width: auto;
+	 height: auto;
 	 z-index:6;
 } 
  #outercollar 
 { 
-	 left: 624px; 
-	 top: 88px; 
+	 left: 500px; 
+	 top: 108px; 
 	 position: absolute; 
 	 width: auto;
 	 height: auto;
@@ -128,32 +128,31 @@ margin-left:90px;
 }
  #innercuff 
 { 
-	 left: 537px; 
-	 top: 498px; 
+	 left: 501px; 
+	 top: 108px; 
 	 position: absolute; 
-	 width: 89px;
-	 height: 69px;
+	 width: auto;
+	 height: auto;
 	 z-index:1;
 } 
 
  #outercuff 
 { 
-	 left: 526px; 
-	 top: 463.5px; 
+	left: 500px; 
+	 top: 107px; 
 	 position: absolute; 
-
-	 width: 699px;
-	 height: 219px;
+	 width: auto;
+	 height: auto;
 	 z-index:2;
 } 
 
  #buttonplacket 
 { 
-	 left: 658px; 
-	 top: 128px; 
+	left: 500px; 
+	 top: 108px; 
 	 position: absolute; 
-	 width: 31px;
-	 height: 72px;
+	 width: auto;
+	 height: auto;
 	 z-index:3;
 } 
 #pocket{
@@ -166,8 +165,8 @@ margin-left:90px;
 }
  #outsidefastening 
 { 
-	 left: 665.5px; 
-	 top: 126px; 
+	 left: 500px; 
+	 top: 108px; 
 	 position: absolute; 
 	 width: auto;
 	 height: auto;
@@ -179,8 +178,8 @@ margin-left:90px;
 
  #button 
 { 
-	 left: 654px; 
-	 top: 121px; 
+	 left: 500px; 
+	 top: 108px; 
 	 position: absolute; 
 	 width: auto;
 	 height: auto;
