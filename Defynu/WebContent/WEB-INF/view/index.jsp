@@ -27,10 +27,11 @@ else
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
 <head>
+<head>
     <meta charset="utf-8">
     <!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Avaran-Suit your Style environment.  </title>
+    <title>DefynU-Suit your Style environment.  </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <spring:url value="/resources/css/normalize.css" var="normalizeCSS" />
@@ -54,22 +55,35 @@ else
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
-</head>
+    
+    
+    <link rel="shortcut icon" href="../favicon.ico"> 
+       <!--  <link rel="stylesheet" type="text/css" href="/resources/css/demo.css" />
+        <link rel="stylesheet" type="text/css" href="/resources/css/style1.css" /> -->
+		<!-- <script type="text/javascript" src="resources/js/modernizr.custom.86080.js"></script>
+ -->
+  
+<style>
+.mySlides {display:none;}
+</style>
+ </head>
 <body id="top">
     <!--[if lt IE 8]>
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <section class="hero">
+  
+     	 
+     	<section class="hero1">  
         <section class="navigation">
             <header>
                 <div class="header-content">
-                    <div class="logo"><a href="#"><img src="resources/img/aavaran-logo.png" alt="Sedna logo"></a></div>
+                    <div class="logo"><a href="#"><img src="resources/img/logonew.png" alt="Sedna logo"></a></div>
                     <div class="header-nav">
                         <nav>
                             <ul class="primary-nav">
-							    <li><a href="#feature">Customize</a></li>
-                                <li><a href="#features">Shirts</a></li>
-                               <li><a href="#three">FABRICS</a></li>
+							    <li><a href="/Defynu/design?body=1&outercollar=bc1&innercollar=1&outercuff=sb1&innercuff=1&button=1&buttonplacket=1&outsidefastening=1&pocket=sp1&price=800">Customize</a></li>
+                                <li><a href="#">Shirts</a></li>
+                               <li><a href="#">FABRICS</a></li>
                             
                             </ul>
                             <ul class="member-actions">
@@ -82,12 +96,12 @@ else
   </c:when>
   
 <c:otherwise>
-   <li><a href="/logout" class="login">Signout</a></li>
+   <li><a href="/signout" class="login">Signout</a></li>
   </c:otherwise>
 </c:choose>
                    
                                 <h7 style="color:white;">${loggedInUser}</h7>
-                               <li><a href="/checkout" class="btn-white btn-small">bag &nbsp; <span data-icon="&#xe027;" class="icon"></span> &nbsp; (${cart})</a></li>
+                               <li><a href="#" class="btn-white btn-small">bag  <span data-icon="&#xe027;" class="icon"></span> &nbsp; (${cart})</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -97,20 +111,54 @@ else
                 </div>
             </header>
         </section>
-		
-        <div class="container">
+        
+	 <section class="testimonial-slider section-padding text-center wp3" id="car">
+       <!--  <div class="container">
             <div class="row">
+                <div class="col-md-12"> -->
+                    <div class="flexslider">
+                        <ul class="slides">
+                            <li>
+                                <div class="avatar"><img src="resources/img/slide1.png" alt="Sedna Testimonial Avatar"></div>
+                               
+                            </li>
+                            <li>
+                                <div class="avatar"><img src="resources/img/slide2.png" alt="Sedna Testimonial Avatar"></div>
+                              
+                            </li>
+                            <li>
+                                <div class="avatar"><img src="resources/img/slide3.png" alt="Sedna Testimonial Avatar"></div>
+                                 
+                            </li>
+                        </ul>
+                   <!--  </div>
+                </div>
+            </div> -->
+        </div>
+    </section> 
+    </section>
+	 <!-- <section class="hero">
+     	  <div class="w3-content w3-section" style="max-width:1366px">     
+  <img class="mySlides" src="resources/img/xclusive.png" style="width:100%">
+  <img class="mySlides" src="resources/img/page1.png" style="width:100%">
+  <img class="mySlides" src="resources/img/5.jpg" style="width:100%">
+</div>
+        <div class="container">
+               <div class="row">
                 <div class="col-md-10 col-md-offset-1">
                     <div class="hero-content text-center">
-                        <a href="/Defynu/design?body=1&outercollar=1&innercollar=1&outercuff=1&innercuff=1&button=1&buttonplacket=1&outsidefastening=1&pocket=1&price=800" class="btn btn-fill btn-large btn-margin-right">CUSTOMIZE MY SHIRT</a> 
+                     <h1>   <br/><br/><br/><br/><br/></h1>
+                       
+                        <a href="/customize"  class="btn btn-fill btn-large btn-margin-right">CUSTOMIZE</a>
+                        <a href="/personalize"  class="btn btn-accent btn-large">GET INSPIRED</a> 
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="down-arrow floating-arrow"><a href="#"><i class="fa fa-angle-down"></i></a></div>
-    </section>
-     
-    <section class="intro section-padding" id="feature">
+        </div> -->
+        <!-- <div class="down-arrow floating-arrow"><a href="#"><i class="fa fa-angle-down"></i></a></div>
+    </section> -->
+      
+   <section class="intro section-padding" id="feature">
         <div class="container">
             <div class="row">
                 <div class="col-md-4 intro-feature"> <img src="resources/img/choose.jpg" alt="choose">
@@ -123,7 +171,7 @@ else
                         <p>Choose the fabric suits your attire from our wide range of premium </p>
                     </div>
                 </div>
-                <div class="col-md-4 intro-feature"><img src="resources/img/customize.jpg" alt="choose">
+                <div class="col-md-4 intro-feature"><a  href="#"><img  src="resources/img/customize.jpg" alt="choose"></a>
                     <div class="intro-icon">
                         <span data-icon="&#xe046;" class="icon"></span>
                     </div>
@@ -141,20 +189,147 @@ else
 					
                         <h5>Get Measured</h5>
                         <p>Get your accurate measurement through our responsive tailoring guide or choose satndard sizes. </p>
+                        <a href="#"  class="btn btn-fill btn-large btn-margin-right">Get Started</a>
+                        
                     </div>
                 </div>
             </div>
-        </div><a href="/customize"  class="lets btn-fill btn-large ">Lets Start</a>
+        </div><!-- <a href="/customize"  class="lets btn-fill btn-large ">Lets Start</a> -->
     </section>
-    <section class="features section-padding" id="features">
-        <div class="container">
+    <section class="blog text-center" >
+        <div class="container-fluid" >
+            <div class="row">
+               <%--  <div class="col-md-4">
+                    <article class="blog-post" >
+                        <figure>
+                            <a href="resources/img/blog-img-01.jpg" class="single_image">
+                                <div class="blog-img-wrap">
+                                    <div class="overlay">
+                                        <i class="fa fa-search"></i>
+                                    </div>
+                                    <img src="resources/img/blog-img-01.jpg" alt="Sedna blog image"/>
+                                </div>
+                            </a>
+                            <figcaption>
+                            <h2><a href="/browse" class="blog-category" data-toggle="tooltip" data-placement="top" data-original-title="See more posts">100% Cotton</a></h2>
+                            <!-- <p><a href="#" class="blog-post-title">Getting started with Sedna <i class="fa fa-angle-right"></i></a></p> -->
+                            </figcaption>
+                        </figure>
+                    </article>
+                </div> --%>
+                <div class="col-md-6">
+                    <article class="blog-post">
+                        <figure>
+                           <!--  <a href="resources/img/blog-img-02.jpg" class="single_image">
+                            -->     <div class="blog-img-wrap">
+                                    <div class="overlay">
+                                        <i class="fa fa-search"></i>
+                                    </div>
+                                    <img src="resources/img/collarscale.png" alt="Sedna blog image"/>
+                                </div>
+                            </a>
+                            <%-- <figcaption>
+                            <h2><a href="/browse" class="blog-category" data-toggle="tooltip" data-placement="top" data-original-title="See more posts">Pima Cotton</a></h2>
+                           
+                            </figcaption> --%>
+                        </figure>
+                    </article>
+                </div>
+                <div class="col-md-6">
+                    <article class="blog-post">
+                        <figure>
+                            <!-- <a href="resources/img/blog-img-03.jpg" class="single_image">
+                             -->    <div class="blog-img-wrap">
+                                    <div class="overlay">
+                                        <i class="fa fa-search"></i>
+                                    </div>
+                                    <img src="resources/img/strip.png" class="single_image" alt="Sedna blog image"/>
+                                </div>
+                            </a>
+                            <%-- <figcaption>
+                            <h2><a href="/browse" class="blog-category" data-toggle="tooltip" data-placement="top" data-original-title="See more posts">Giza Cotton</a></h2>
+                           </figcaption> --%>
+                        </figure>
+                    </article>
+                </div>
+                <!-- <a href="/browse" class="btn btn-ghost btn-accent btn-small">Browse</a> -->
+            </div>
+        </div>
+    </section>
+    
+     <section class="blog text-center" >
+        <div class="container-fluid" >
+            <div class="row">
+               <%--  <div class="col-md-4">
+                    <article class="blog-post" >
+                        <figure>
+                            <a href="resources/img/blog-img-01.jpg" class="single_image">
+                                <div class="blog-img-wrap">
+                                    <div class="overlay">
+                                        <i class="fa fa-search"></i>
+                                    </div>
+                                    <img src="resources/img/blog-img-01.jpg" alt="Sedna blog image"/>
+                                </div>
+                            </a>
+                            <figcaption>
+                            <h2><a href="/browse" class="blog-category" data-toggle="tooltip" data-placement="top" data-original-title="See more posts">100% Cotton</a></h2>
+                            <!-- <p><a href="#" class="blog-post-title">Getting started with Sedna <i class="fa fa-angle-right"></i></a></p> -->
+                            </figcaption>
+                        </figure>
+                    </article>
+                </div> --%>
+                
+                 <div class="col-md-6">
+                    <article class="blog-post">
+                        <figure>
+                           <!--  <a href="#" class="single_image"> -->
+                                <div class="blog-img-wrap">
+                                    <div class="overlay">
+                                        <i class="fa fa-search"></i>
+                                    </div>
+                                    <img src="resources/img/macbook-pro.png" class="single_image" alt="Sedna blog image"/>
+                                </div>
+                            </a>
+                            <%-- <figcaption>
+                            <h2><a href="/browse" class="blog-category" data-toggle="tooltip" data-placement="top" data-original-title="See more posts">Giza Cotton</a></h2>
+                           </figcaption> --%>
+                        </figure>
+                    </article>
+                </div>
+                <div class="col-md-6">
+                    <article class="blog-post">
+                        <figure>
+                           <!--  <a href="#" class="single_image">
+                            -->     <div class="blog-img-wrap">
+                                    <div class="overlay">
+                                        <i class="fa fa-search"></i>
+                                    </div>
+                                    <img src="resources/img/organic.png" alt="Sedna blog image"/>
+                                </div>
+                            </a>
+                            <%-- <figcaption>
+                            <h2><a href="/browse" class="blog-category" data-toggle="tooltip" data-placement="top" data-original-title="See more posts">Pima Cotton</a></h2>
+                           
+                            </figcaption> --%>
+                        </figure>
+                    </article>
+                </div>
+               
+                <!-- <a href="/browse" class="btn btn-ghost btn-accent btn-small">Browse</a> -->
+            </div>
+        </div>
+    </section>
+   <!--  <section class="features section-padding" id="features">
+      
+  <img  src="resources/img/page1.png" style="width:100%"> -->
+        <!-- <div class="container">
             <div class="row">
                 <div class="col-md-5 col-md-offset-7">
                     <div class="feature-list">
                         <h3>The Formal Attire</h3>
 						<hr \>
-                        <!--<p>Present your product, start up, or portfolio in a beautifully modern way. Turn your visitors in to clients.</p>
-                        --><ul class="features-stack">
+                        <p>Present your product, start up, or portfolio in a beautifully modern way. Turn your visitors in to clients.</p>
+                       <ul class="features-stack">
                             <li class="feature-item">
                                 <div class="feature-icon">
                                     <span data-icon="&#xe02c;" class="icon"></span>
@@ -193,13 +368,18 @@ else
                 <div class="iphone-wrap wp2"></div>
         <div class="responsive-feature-img"><img src="resources/img/devices.png" alt="responsive devices"></div>
             </div>
-        </div>
-    </section>
-    <section class="features-extra section-padding" id="assets">
-        <div class="container">
+        </div> 
+    </section>-->
+    <!-- <section class="features-extra section-padding" id="assets"> 
+    <div class="macbook-wrap wp3"></div>
+        <div class="responsive-feature-img"><img src="resources/img/macbook-pro.png" alt="responsive devices"></div>
+         -->
+                  
+       <!--  <div class="container">
             <div class="row">
                 <div class="col-md-5">
                     <div class="feature-list">
+                    
                         <h3>Designed with Sketch!</h3>
                         <p>Easily change/switch/swap every placeholder inside every image on Sedna with the included Sketch files. You’ll have this template customised to suit your business in no time! </p>
                         <p>Nam vehicula malesuada lectus, interdum fringilla nibh. Duis aliquam vitae metus a pharetra. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fermentum augue quis augue ornare, eget faucibus felis pharetra. Proin condimentum et leo quis fringilla.
@@ -211,20 +391,21 @@ else
         </div>
         <div class="macbook-wrap wp3"></div>
         <div class="responsive-feature-img"><img src="resources/img/macbook-pro.png" alt="responsive devices"></div>
-    </section>
-	<section class="blog text-center" id="three" >
+        
+    </section> -->
+	<!-- <section class="blog text-center" id="three" >
         <div class="container-fluid" >
            
         </div>
-    </section>
+    </section> -->
     <section class="blog text-center" >
         <div class="container-fluid" >
             <div class="row">
                 <div class="col-md-4">
                     <article class="blog-post" >
                         <figure>
-                            <a href="resources/img/blog-img-01.jpg" class="single_image">
-                                <div class="blog-img-wrap">
+                            <!-- <a href="resources/img/blog-img-01.jpg" class="single_image">
+                             -->    <div class="blog-img-wrap">
                                     <div class="overlay">
                                         <i class="fa fa-search"></i>
                                     </div>
@@ -232,17 +413,17 @@ else
                                 </div>
                             </a>
                             <figcaption>
-                            <h2><a href="/browse" class="blog-category" data-toggle="tooltip" data-placement="top" data-original-title="See more posts">100% Cotton</a></h2>
+                            <h2><a href="#" class="blog-category" data-toggle="tooltip" data-placement="top" data-original-title="See more posts">100% Cotton</a></h2>
                             <!-- <p><a href="#" class="blog-post-title">Getting started with Sedna <i class="fa fa-angle-right"></i></a></p> -->
                             </figcaption>
                         </figure>
                     </article>
-                </div>
+                </div> 
                 <div class="col-md-4">
                     <article class="blog-post">
                         <figure>
-                            <a href="resources/img/blog-img-02.jpg" class="single_image">
-                                <div class="blog-img-wrap">
+                           <!--  <a href="#" class="single_image">
+                            -->     <div class="blog-img-wrap">
                                     <div class="overlay">
                                         <i class="fa fa-search"></i>
                                     </div>
@@ -250,7 +431,7 @@ else
                                 </div>
                             </a>
                             <figcaption>
-                            <h2><a href="/browse" class="blog-category" data-toggle="tooltip" data-placement="top" data-original-title="See more posts">Pima Cotton</a></h2>
+                            <h2><a href="#" class="blog-category" data-toggle="tooltip" data-placement="top" data-original-title="See more posts">Pima Cotton</a></h2>
                            
                             </figcaption>
                         </figure>
@@ -259,8 +440,8 @@ else
                 <div class="col-md-4">
                     <article class="blog-post">
                         <figure>
-                            <a href="resources/img/blog-img-03.jpg" class="single_image">
-                                <div class="blog-img-wrap">
+                            <!-- <a href="#" class="single_image">
+                             -->    <div class="blog-img-wrap">
                                     <div class="overlay">
                                         <i class="fa fa-search"></i>
                                     </div>
@@ -268,18 +449,18 @@ else
                                 </div>
                             </a>
                             <figcaption>
-                            <h2><a href="/browse" class="blog-category" data-toggle="tooltip" data-placement="top" data-original-title="See more posts">Giza Cotton</a></h2>
+                            <h2><a href="#" class="blog-category" data-toggle="tooltip" data-placement="top" data-original-title="See more posts">Giza Cotton</a></h2>
                            </figcaption>
                         </figure>
                     </article>
                 </div>
-                <a href="/browse" class="btn btn-ghost btn-accent btn-small">Browse</a>
-            </div>
+                <!-- <a href="#" class="btn btn-ghost btn-accent btn-small">Browse</a>
+            --> </div>
         </div>
     </section>
     
 	 
-	<section class="testimonial-slider section-padding text-center" id="car">
+	 <!-- <section class="testimonial-slider section-padding text-center wp3" id="car">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -305,15 +486,16 @@ else
                 </div>
             </div>
         </div>
-    </section>		
-    
+    </section> 		
+     -->
     <section class="sign-up section-padding text-center" id="download">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
-                    <h3>Get started with Aavaran</h3>
-                    <p>Grab your shirt today, exclusively from Aavaran</p>
-                    <form class="signup-form" action="/Defynu/hello" method="POST" role="form">
+                    <h3>Get started with DefynU</h3>
+                    <p>Grab your shirt today, exclusively from DefynU</p>
+                    <p style:font>${message}</p>
+                    <form class="signup-form" action="/hello" method="POST" role="form">
                         <div class="form-input-group">
                             <i class="fa fa-envelope"></i><input type="text" name="email" id="email" class="formfield long" placeholder="Enter your email" required>
                         </div>
@@ -349,12 +531,12 @@ else
                             <li><a href="#">How It Works</a></li>
                             
                         </ul>
-                        <p>Copyright © 2016 <a href="#">AAVARAN <span class="fa fa-heart pulse2"></span></a><br>
+                        <p>Copyright © 2016 <a href="#">DefynU <span class="fa fa-heart pulse2"></span></a><br>
                          </div>
                 </div>
                 <div class="social-share">
-                    <p>Share Avaran with your friends</p>
-                    <a href="https://twitter.com/peterfinlan" class="twitter-share"><i class="fa fa-twitter"></i></a> <a href="#" class="facebook-share"><i class="fa fa-facebook"></i></a>
+                    <p>Share DefynU with your friends</p>
+                    <a href="#" class="twitter-share"><i class="fa fa-twitter"></i></a> <a href="#" class="facebook-share"><i class="fa fa-facebook"></i></a>
                 </div>
             </div>
         </div>
@@ -378,5 +560,22 @@ else
     r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
     ga('create','UA-XXXXX-X','auto');ga('send','pageview');
     </script>
+ 
+<script>
+var myIndex = 0;
+carousel();
+
+function carousel() {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    for (i = 0; i < x.length; i++) {
+       x[i].style.display = "none";
+    }
+    myIndex++;
+    if (myIndex > x.length) {myIndex = 1}
+    x[myIndex-1].style.display = "block";
+    setTimeout(carousel, 2000); // Change image every 2 seconds
+}
+</script>
 </body>
 </html>
