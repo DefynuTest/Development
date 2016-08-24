@@ -22,6 +22,7 @@ import com.defynu.Model.Shirt;
 import oracle.sql.BLOB;
 
 public class Main {
+	//private static final long serialVersionUID = -4793787067294496684L;
   public String AddtoCart(Shirt shirt,String uname) throws Exception {
     String WRITE_OBJECT_SQL = "BEGIN "
         + "  INSERT INTO java_objects(object_id, object_value) "

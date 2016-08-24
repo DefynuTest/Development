@@ -78,18 +78,21 @@
 			<div id="button"><img src="resources/pocket/pockets${Pocket}.png"></div>
 		</div>
 		<div id="details"><p><b>You Have Customized</b></p><br>
-		<h4>Men's Shirt:&nbsp;${fabric}</h4>
-		<h4>INR:${price}</h4>
+		<h4>Men's Shirt:&nbsp;${bodyname}</h4>
+		<h4>Cuff Type:&nbsp;${outercuffname}</h4>
+		<h4>Collar Type:&nbsp;${outercollarname}</h4>
+		<h4>Pocket Type:&nbsp;${pocketname}</h4>
+		<h4>INR:${Price}</h4>
 		</div>
-		<form align="right" action="/CottonCaress/change?body=${shirt}&outercollar=${OuterCollar}&innercollar=${InnerCollar}&outercuff=${OuterCuff}&innercuff=${InnerCuff}&button=${Button}&buttonplacket=1&outsidefastening=${OutsideFastening}" method="post" target="_self">
+		<form align="right" action="/Defynu/change?body=${shirt}&outercollar=${OuterCollar}&innercollar=${InnerCollar}&outercuff=${OuterCuff}&innercuff=${InnerCuff}&button=${Button}&buttonplacket=${ButtonPlacket}&outsidefastening=${OutsideFastening}&price=${Price}&pocket=${Pocket}" method="post" target="_self">
 
   <input type="submit" id="change-btn" class="btn btn-fill btn-large btn-margin-right" value="change"> 
 </form>
-<form align="right" action="/CottonCaress/continueshopping?body=${shirt}&outercollar=${OuterCollar}&innercollar=${InnerCollar}&outercuff=${OuterCuff}&innercuff=${InnerCuff}&button=${Button}&buttonplacket=1&outsidefastening=${OutsideFastening}" method="post" target="_self">
+<form align="right" action="/Defynu/continueshopping?body=${shirt}&outercollar=${OuterCollar}&innercollar=${InnerCollar}&outercuff=${OuterCuff}&innercuff=${InnerCuff}&button=${Button}&buttonplacket=1&outsidefastening=${OutsideFastening}" method="post" target="_self">
 
   <input type="submit" id="continue-btn" class="btn btn-fill btn-large btn-margin-right" value="continue shoping">
 </form>
-<form align="right" action="/CottonCaress/checkout" method="GET" target="_self">
+<form align="right" action="/Defynu/checkout" method="GET" target="_self">
 
   <input type="submit" id="proceed-btn"  class="btn btn-fill btn-large btn-margin-right" value="proceedtocheckout" align="right">
 </form>

@@ -73,7 +73,7 @@ html[xmlns] .flexslider .slides {
  * DEFAULT THEME
  * ====================================================================================================================*/
 .flexslider {
-  margin: 20px 0;
+  margin:  0;
   position: relative;
   zoom: 1;
   -webkit-border-radius: 4px;
@@ -163,7 +163,7 @@ html[xmlns] .flexslider .slides {
   cursor: default;
 }
 .flex-pauseplay a {
-  display: block;
+  display:none;
   width: 20px;
   height: 20px;
   position: absolute;
@@ -193,11 +193,12 @@ html[xmlns] .flexslider .slides {
   bottom: -110px;
   text-align: center;
 }
+/*carousel radio indiacator*/
 .flex-control-nav li {
   margin: 0 6px;
-  display: inline-block;
+  display: none;
   zoom: 1;
-  *display: inline;
+  *display: none;
 }
 .flex-control-paging li a {
   width: 12px;

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.jboss.logging.Logger;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,46 +33,55 @@ import com.defynu.Model.Shirt;
 @Controller
 @Scope("session") 
 public class LoginController extends HttpServlet  {
-	ArrayList<Shirt> sht = new ArrayList<Shirt>();
-	SessionVariable username = new SessionVariable() ; 
-	
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public ModelAndView homepage(@RequestParam Map<String,String> reqPar,HttpServletRequest request, HttpServletResponse response) throws Exception {
-			
-			ModelAndView model= null;
 
-			model = new ModelAndView("index");
-		
+	ArrayList<Shirt> sht = new ArrayList<Shirt>();
+	SessionVariable username =new SessionVariable();
+	
+	Logger log= Logger.getLogger(LoginController.class.getName()); 
+
+	@RequestMapping(value = "/index", method = RequestMethod.GET) 
+
+	public ModelAndView homepage(@RequestParam Map<String,String> reqPar,HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		ModelAndView model= null;
+
+		model = new ModelAndView("index");
+		log.info("View object Returned");	
 		return model;
-		}
+	}
 
 	@RequestMapping(value = "/hello", method = RequestMethod.POST)
 	public ModelAndView loginsucess(@RequestParam Map<String,String> reqPar,HttpServletRequest request, HttpServletResponse response) throws Exception {
-		HttpSession session=request.getSession(); 
-		System.out.println(session);
+		HttpSession session=request.getSession();
+
+		//System.out.println(session);
 		String email = reqPar.get("email");
 		String password = reqPar.get("password");
+		log.info("Session is:"+session);
+		log.info("Email is:"+email);
+		log.info("Password is:"+password);
 		boolean result=false;
 		username.setUname(email);
 		session.setAttribute(email, session);
 
-		System.out.println(email+password);
+		log.info(email+password);
 
 		User user= new User(email,password);
+
 		LoginDao login = new LoginDao();
-
+		log.info("Database Called");    
 		result=login.isValidUser(user);
+		log.info("Valid User"); 
 
-
-		System.out.println(result);
+		log.info(result);
 
 		ModelAndView model= null;
 
 		if(result)
 		{		 model = new ModelAndView("hello");
-		System.out.println("User Login Successful");
+		log.info("User Login Successful");
 		model.addObject("loggedInUser", user.getEmail());
-		model.addObject("username",session.getAttribute(email));
+		model.addObject("uname",session.getAttribute(email));
 
 		Main crt= new Main();
 		ArrayList<Shirt> sht1 = new ArrayList<Shirt>();
@@ -84,6 +94,7 @@ public class LoginController extends HttpServlet  {
 			cart=cart+ sht1.get(j).getQty();
 			j++;
 		}
+		log.info("Added into cart");
 		model.addObject("cart", cart);
 		model.addObject("cart", cart);
 		}
@@ -112,7 +123,7 @@ public class LoginController extends HttpServlet  {
 			Main crt= new Main();
 			String y;
 			ArrayList<Shirt> sht1 = new ArrayList<Shirt>();
-			
+
 			sht1=crt.ShowCart(username.getUname());
 			System.out.println("sht1 ka size" + sht1.size());
 			int j=0;
@@ -125,7 +136,7 @@ public class LoginController extends HttpServlet  {
 			cart=sht.size();
 			System.out.println("hhhhhh"+ sht.size());
 			model.addObject("cart", cart);
-			
+
 			model.addObject("cart", cart);
 
 
@@ -139,12 +150,12 @@ public class LoginController extends HttpServlet  {
 			System.out.println(session1); 
 			model = new ModelAndView("hello");
 			System.out.println("User Login Successful");
-			model.addObject("loggedInUser", username);
+			model.addObject("loggedInUser", username.getUname());
 
 			Main crt= new Main();
 			String y;
 			ArrayList<Shirt> sht1 = new ArrayList<Shirt>();
-			//	y=crt.AddtoCart(shirt,username);
+			//	y=crt.AddtoCart(shirt,uname);
 			sht1=crt.ShowCart(username.getUname());
 			System.out.println("sht1 ka size" + sht1.size());
 			int j=0;
@@ -191,25 +202,28 @@ public class LoginController extends HttpServlet  {
 		String email = reqPar.get("email");
 		String password = reqPar.get("password");  
 		String result;
+		log.info("Password is:"+password);
+		log.info("Email is:"+email);
 
 		User user= new User(email,password);
+		log.info("Data is set");
 		RegisterDao register = new RegisterDao();
-
+		log.info("Database Called");  
 		result=register.isRegister(user);
-
+		log.info("Result Returned");
 
 		System.out.println(result);
 
 		ModelAndView model= null;
 
 		if(result == "N")
-			{	
-		SendEmail	mail= new SendEmail();
-		mail.mail(email);
+		{	
+			SendEmail	mail= new SendEmail();
+			mail.mail(email);
 			model = new ModelAndView("hello");
-		System.out.println("User Registered Successful");
-		model.addObject("loggedInUser", user.getEmail());
-		 
+			log.info("User Registered Successful");
+			model.addObject("loggedInUser", user.getEmail());
+
 
 		}
 		else
@@ -226,7 +240,7 @@ public class LoginController extends HttpServlet  {
 	public ModelAndView registerForm(){
 
 		ModelAndView model = new ModelAndView("hello");
-
+		log.info("View Object Returned");
 		return model;
 	}
 

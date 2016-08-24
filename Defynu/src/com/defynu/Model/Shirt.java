@@ -1,17 +1,46 @@
 package com.defynu.Model;
 import java.io.*; 
 
-public class Shirt implements Serializable{                   /*extends AddMeasurement */
+public class Shirt implements Serializable{                   
+/*extends AddMeasurement */
+
 
 	public String body;
 	private String button;
 	private String buttonplacket;
 	private String innercollar;
 	public String outercollar;
+	public String outercollartype;
 	private String innercuff;
 	private String outercuff;
+	public String outercufftype;
 	private String outsidefastening;
-	private String pocket;
+	public String pocket;
+	public String pockettype;
+	public String getOutercollartype() {
+		return outercollartype;
+	}
+
+	public void setOutercollartype(String outercollartype) {
+		this.outercollartype = outercollartype;
+	}
+
+	public String getOutercufftype() {
+		return outercufftype;
+	}
+
+	public void setOutercufftype(String outercufftype) {
+		this.outercufftype = outercufftype;
+	}
+
+	public String getPockettype() {
+		return pockettype;
+	}
+
+	public void setPockettype(String pockettype) {
+		this.pockettype = pockettype;
+	}
+
 	public String getPocket() {
 		return pocket;
 	}

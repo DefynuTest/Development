@@ -1,7 +1,10 @@
 package com.defynu.Model;
 
+import org.springframework.context.annotation.Scope;
+
+@Scope("session")
 public class SessionVariable {
-	static String uname= "null";
+	static String uname= null;
 
 	public String getUname() {
 		return uname;

@@ -18,20 +18,25 @@ import org.springframework.web.servlet.ModelAndView;
 import com.defynu.Model.Fabric;
 import com.defynu.Model.SessionVariable;
 import com.defynu.Model.Shirt;
+import com.defynu.Model.ShirtDetails;
 import com.defynu.Services.Main;
 
 
 @Controller
 @Scope("session")
 public class DesignController extends HttpServlet  {
+
+	
 	ArrayList<Shirt> sht = new ArrayList<Shirt>();
 	Fabric fabric = new Fabric();
 	Shirt s1 = new Shirt();
+	ShirtDetails details= new ShirtDetails();
 	SessionVariable username = new SessionVariable() ;
 	ArrayList<Fabric> fablist = new ArrayList<Fabric>();
+	
 
 	@RequestMapping(value = "/design{someID}", method = RequestMethod.GET)
-	public ModelAndView design(@RequestParam Map<String,String> reqPar) {
+	public ModelAndView design(@RequestParam Map<String,String> reqPar){
 
 		//Shirt shirt=new Shirt();
 
@@ -70,16 +75,56 @@ public class DesignController extends HttpServlet  {
 		model.addObject("OutsideFastening", s1.getOutsidefastening());
 		model.addObject("Pocket", s1.getPocket());
 		model.addObject("Price", s1.getPrice());
-		int j=0;
-		int cart =0;
-		while(j<sht.size())
-		{
-			cart=cart+ sht.get(j).getQty();
-			j++;
+		int j = 0;
+		int cart = 0;
+
+		if (username.getUname() == null) {
+			while (j < sht.size()) {
+				cart = cart + sht.get(j).getQty();
+				j++;
+			}
+			model.addObject("cart", cart);
+			for (int i = 0; i < sht.size(); i++) {
+				System.out.println(sht.get(i).body + sht.get(i).outercollar);
+			}
+		} else {
+			Main crt = new Main();
+			ArrayList<Shirt> sht1 = new ArrayList<Shirt>();
+
+			System.out.println(sht1.size());
+
+			int i = 0;
+			String y;
+			System.out.println("Hi" + sht.size());
+			while (i < sht.size()) {
+				try {
+					y = crt.AddtoCart(sht.get(i), username.getUname());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				i++;
+			}
+			try {
+				sht1 = crt.ShowCart(username.getUname());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			// sht.add(shirt);
+			int k = 0;
+			int carts = 0;
+			while (k < sht1.size()) {
+				carts = carts + sht1.get(k).getQty();
+				System.out.println(sht1.get(k).body);
+				k++;
+			}
+
+			model.addObject("cart", carts);
 		}
-		model.addObject("cart", cart);
-		return model; 
-	}	 
+
+		return model;
+	}
 
 
 	/****************************Design a/b/c... ***********************/
@@ -137,7 +182,7 @@ public class DesignController extends HttpServlet  {
 		int price = Integer.parseInt(cost);
 		fablist=fabric.AddFabric();
 		s1.setPrice(fablist.get(price-1).getPrice());
-		
+
 		ModelAndView model= null;
 		model = new ModelAndView("customizea");
 		model.addObject("shirt", s1.getBody());
@@ -390,9 +435,9 @@ public class DesignController extends HttpServlet  {
 
 		return model; 
 	}
-	
+
 	/*****************************************************Add To Cart**************************************/
-	
+
 	@RequestMapping(value = "/addtocart{someID}", method = RequestMethod.GET)
 	public ModelAndView getHomePage1(@RequestParam Map<String, String> reqPar) {
 		// Shirt shirt=new Shirt();
@@ -403,24 +448,16 @@ public class DesignController extends HttpServlet  {
 		model.setViewName("hello");
 		return model;
 	}
-	
-	
+
+
 	@RequestMapping(value = "/addtocart{someID}", method = RequestMethod.POST)
 	public ModelAndView Addtocart(@RequestParam Map<String, String> reqPar,
 			HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+					throws Exception {
 
 		HttpSession session = request.getSession(false);
 		fablist = Fabric.AddFabric();
-		if (session == null) {
-			session = request.getSession();
-
-			ModelAndView model = null;
-			model.setViewName("AddToCart");
-			model.addObject("fabric", fablist);
-			return model;
-
-		} else {
+		
 			session.setAttribute("cart", sht);
 			Shirt shirt = new Shirt();
 			String body = reqPar.get("body");
@@ -441,12 +478,14 @@ public class DesignController extends HttpServlet  {
 			shirt.setOutsidefastening(outsidefastening);
 			String pocket = reqPar.get("pocket");
 			shirt.setPocket(pocket);
-			String cost = reqPar.get("price");
-			int price = Integer.parseInt(cost);
-			shirt.setPrice(price);
 			int qty = shirt.getQty() + 1;
 			shirt.setQty(qty);
 			shirt.setNo(sht.size() + 1);
+			
+			String cost = shirt.getBody();
+			fablist=fabric.AddFabric();
+			int price = Integer.parseInt(cost);
+			shirt.setPrice(fablist.get(price-1).getPrice());
 
 			ModelAndView model = null;
 			model = new ModelAndView("customize");
@@ -461,8 +500,76 @@ public class DesignController extends HttpServlet  {
 			model.addObject("Pocket", shirt.getPocket());
 			model.addObject("Price", shirt.getPrice());
 			model.addObject("list", sht);
-			model.addObject("fabric",
-					fablist.get(Integer.parseInt(shirt.body) - 1).name);
+			//ArrayList<String> bodyname,outercollarname,pocketname,outercuffname;
+			//bodyname= ShirtDetails.BodyName();
+			//outercollarname= ShirtDetails.OutercollarName();
+			//outercuffname= ShirtDetails.OutercuffName();
+			//pocketname= ShirtDetails.PocketName();
+			
+			String collartype="default";
+			String ptype="default";
+			String cufftype="default";
+			String outercollarid= shirt.getOutercollar();
+			String id= outercollarid.substring(0,2);
+			if(id.equalsIgnoreCase("bc"))
+			{
+				collartype = "Business Classic";
+				
+			}
+			 if(id.equalsIgnoreCase("ca")){
+					
+					collartype = "Cut Away";
+				}
+			 if(id.equalsIgnoreCase("bd")){
+					
+					collartype = "Button Down";
+				}
+			 if(id.equalsIgnoreCase("mh")){
+					
+					collartype = "Mao";
+				}
+			shirt.setOutercollartype(collartype);
+			String pocketid= shirt.getPocket();
+			String pid= pocketid.substring(0,2);
+			if(pid.equalsIgnoreCase("np")){
+				
+				ptype = "nopocket";
+			}
+			if(pid.equalsIgnoreCase("sp")){
+				
+				ptype = "Simple Pocket";
+			}
+			if(pid.equalsIgnoreCase("fp")){
+				
+				ptype = "Flap Pocket";
+			}
+			
+			shirt.setPockettype(ptype);
+			String outercuffid= shirt.getOutercuff();
+			String oid= outercuffid.substring(0,2);
+			if(oid.equalsIgnoreCase("sb")){
+				
+				cufftype = "Single Button";
+			}
+			if(oid.equalsIgnoreCase("cc")){
+				
+				cufftype = "Convertible";
+			}
+			if(oid.equalsIgnoreCase("db")){
+				
+				cufftype = "Double Button";
+			}
+			if(oid.equalsIgnoreCase("fc")){
+				
+				cufftype = "French Cuff";
+			}
+			
+			shirt.setOutercufftype(cufftype);
+			model.addObject("bodyname",fablist.get(Integer.parseInt(shirt.body) - 1).name);
+			model.addObject("outercollarname",collartype);
+			model.addObject("outercuffname",cufftype);
+			model.addObject("pocketname",ptype);
+			System.out.println("check" + username.getUname());
 			if (username.getUname() == null) {
 				sht.add(shirt);
 				int j = 0;
@@ -473,14 +580,13 @@ public class DesignController extends HttpServlet  {
 				}
 				model.addObject("cart", cart);
 				for (int i = 0; i < sht.size(); i++) {
-					System.out
-							.println(sht.get(i).body + sht.get(i).outercollar);
+					System.out.println(sht.get(i).body + sht.get(i).outercollar);
 				}
 			} else {
 				Main crt = new Main();
 				String y;
 				ArrayList<Shirt> sht1 = new ArrayList<Shirt>();
-				System.out.println("hhhhhhhhhhh"+ username.getUname());
+				
 				y = crt.AddtoCart(shirt, username.getUname());
 				sht1 = crt.ShowCart(username.getUname());
 				int j = 0;
@@ -491,11 +597,179 @@ public class DesignController extends HttpServlet  {
 				}
 				model.addObject("cart", cart);
 			}
+			
 			model.setViewName("AddToCart");
 			return model;
 		}
+	
+	/***************************************************Countinue Shoping**********************************/
+	
+	@RequestMapping(value = "/continueshopping{someID}", method = RequestMethod.POST)
+	public ModelAndView countinueshopping(
+			@RequestParam Map<String, String> reqPar,
+			HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		System.out.println(session);
+		ModelAndView model = null;
+		model = new ModelAndView("customize");
+		model.addObject("shirt", "1");
+		model.addObject("Button", "1");
+		model.addObject("ButtonPlacket", "1");
+		model.addObject("OuterCollar", "1");
+		model.addObject("InnerCollar", "1");
+		model.addObject("OuterCuff", "1");
+		model.addObject("InnerCuff", "1");
+		model.addObject("OutsideFastening", "1");
+		model.addObject("Pocket", "1");
+		model.addObject("Price", "800");
+		int j = 0;
+		int cart = 0;
+		while (j < sht.size()) {
+			cart = cart + sht.get(j).getQty();
+			j++;
+		}
+		model.addObject("cart", cart);
+		return model;
+	}
+	
+	
+	@RequestMapping(value = "/change{someID}", method = RequestMethod.POST)
+	public ModelAndView proceedtocheckout(
+			@RequestParam Map<String, String> reqPar) {
+
+		Shirt shirt = new Shirt();
+
+		String body = reqPar.get("body");
+
+		shirt.setBody(body);
+		System.out.println(shirt.getBody());
+		String outercollar = reqPar.get("outercollar");
+		shirt.setOutercollar(outercollar);
+		System.out.println(outercollar);
+		String innercollar = reqPar.get("innercollar");
+		shirt.setInnercollar(innercollar);
+		System.out.println(innercollar);
+		String outercuff = reqPar.get("outercuff");
+		shirt.setOutercuff(outercuff);
+		System.out.println(outercuff);
+		String innercuff = reqPar.get("innercuff");
+		shirt.setInnercuff(innercuff);
+		System.out.println(innercuff);
+		String button = reqPar.get("button");
+		shirt.setButton(button);
+		System.out.println(button);
+		String buttonplacket = reqPar.get("buttonplacket");
+		shirt.setButtonplacket(buttonplacket);
+		System.out.println(buttonplacket);
+		String outsidefastening = reqPar.get("outsidefastening");
+		shirt.setOutsidefastening(outsidefastening);
+		System.out.println(outsidefastening);
+		String pocket = reqPar.get("pocket");
+		shirt.setPocket(pocket);
+		System.out.println(pocket);
+		String cost = shirt.getBody();
+		fablist=fabric.AddFabric();
+		int price = Integer.parseInt(cost);
+		shirt.setPrice(fablist.get(price-1).getPrice());
+		
+		ModelAndView model = null;
+		model = new ModelAndView("customize");
+		model.addObject("shirt", shirt.getBody());
+		model.addObject("OuterCollar", shirt.getOutercollar());
+		model.addObject("InnerCollar", shirt.getInnercollar());
+		model.addObject("OuterCuff", shirt.getOutercuff());
+		model.addObject("InnerCuff", shirt.getInnercuff());
+		model.addObject("Button", shirt.getButton());
+		model.addObject("ButtonPlacket", shirt.getButtonplacket());
+		model.addObject("OutsideFastening", shirt.getOutsidefastening());
+		model.addObject("Pocket", shirt.getPocket());
+		model.addObject("Price", shirt.getPrice());
+		int i = sht.size();
+		sht.remove(i - 1);
+		int j = 0;
+		int cart = 0;
+		while (j < sht.size()) {
+			cart = cart + sht.get(j).getQty();
+			j++;
+		}
+		model.addObject("cart", cart);
+
+		// model = new ModelAndView("customize");
+		return model;
+	}
+
+	/* Mapping for Proceed to checkout */
+
+	@RequestMapping(value = "/checkout{someID}", method = RequestMethod.GET)
+	public ModelAndView checkout(@RequestParam Map<String, String> reqPar,
+			HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		// fabric=Fabric.AddFabric();
+		System.out.println(session);
+		String profile = reqPar.get("profile");
+		System.out.println(profile);
+		ModelAndView model = null;
+		model = new ModelAndView("checkout");
+		model.setViewName("checkout");
+		model.addObject("list", sht);
+		int j = 0;
+		int cart = 0;
+		int amount = 0;
+		int price = 0;
+		while (j < sht.size()) {
+			cart = cart + sht.get(j).getQty();
+			amount = amount + (sht.get(j).getQty() * sht.get(j).getPrice());
+			j++;
+		}
+		model.addObject("amount", amount);
+		model.addObject("cart", cart);
+		model.addObject("profile", profile);
+
+		return model;
+	}
+
+	@RequestMapping(value = "/checkout{someID}", method = RequestMethod.POST)
+	public ModelAndView checkoutget(@RequestParam Map<String, String> reqPar,
+			HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		// fabric=Fabric.AddFabric();
+		System.out.println(session);
+		String qty = reqPar.get("qty");
+		int q = Integer.parseInt(qty);
+
+		String object = reqPar.get("object");
+		int no = Integer.parseInt(object);
+		sht.get(no).setQty(q);
+		if (sht.get(no).getQty() == 0) {
+			sht.remove(no);
+		}
+		ModelAndView model = null;
+		int j = 0;
+		int cart = 0;
+		int amount = 0;
+		// int price = sht.get(no-1).getQty()*sht.get(no-1).getPrice();
+		while (j < sht.size()) {
+			cart = cart + sht.get(j).getQty();
+			// System.out.println("ppp" +sht.get(j).getPrice());
+			amount = amount + (sht.get(j).getQty() * sht.get(j).getPrice());
+			System.out.println("hi" + sht.get(j).getQty());
+			j++;
+		}
+
+		model = new ModelAndView("checkout");
+		model.setViewName("checkout");
+		model.addObject("amount", amount);
+		// model.addObject("price", price);
+		model.addObject("cart", cart);
+		model.addObject("list", sht);
+		// model.addObject("fabric",fabric);
+
+		return model;
+	}
+
+	
 	}
 
 
-}
+
 
