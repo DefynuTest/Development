@@ -42,6 +42,7 @@ public class DesignController extends HttpServlet  {
 
 		String body = reqPar.get("body");
 		s1.setBody(body);  
+		System.out.println("bodyy"+ body);
 		String outercollar = reqPar.get("outercollar");
 		s1.setOutercollar(outercollar);
 		String innercollar = reqPar.get("innercollar");
@@ -615,20 +616,47 @@ public class DesignController extends HttpServlet  {
 		model.addObject("shirt", "1");
 		model.addObject("Button", "1");
 		model.addObject("ButtonPlacket", "1");
-		model.addObject("OuterCollar", "1");
+		model.addObject("OuterCollar", "bc1");
 		model.addObject("InnerCollar", "1");
-		model.addObject("OuterCuff", "1");
+		model.addObject("OuterCuff", "sb1");
 		model.addObject("InnerCuff", "1");
 		model.addObject("OutsideFastening", "1");
-		model.addObject("Pocket", "1");
+		model.addObject("Pocket", "sp1");
 		model.addObject("Price", "800");
-		int j = 0;
-		int cart = 0;
-		while (j < sht.size()) {
-			cart = cart + sht.get(j).getQty();
-			j++;
+		
+		
+		if (username.getUname() == null) {
+			//sht.add(shirt);
+			int j = 0;
+			int cart = 0;
+			while (j < sht.size()) {
+				cart = cart + sht.get(j).getQty();
+				j++;
+			}
+			
+			model.addObject("cart", cart);
+			
+		} else {
+			Main crt = new Main();
+			//String y;
+			ArrayList<Shirt> sht1 = new ArrayList<Shirt>();
+			
+		//	y = crt.AddtoCart(shirt, username.getUname());
+			try {
+				sht1 = crt.ShowCart(username.getUname());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			int j = 0;
+			int cart = 0;
+			while (j < sht1.size()) {
+				cart = cart + sht1.get(j).getQty();
+				j++;
+			}
+			model.addObject("cart", cart);
+			System.out.println("SIzeeeeee"+ sht1.size());
 		}
-		model.addObject("cart", cart);
 		return model;
 	}
 	
@@ -685,15 +713,42 @@ public class DesignController extends HttpServlet  {
 		model.addObject("Pocket", shirt.getPocket());
 		model.addObject("Price", shirt.getPrice());
 		int i = sht.size();
-		sht.remove(i - 1);
-		int j = 0;
-		int cart = 0;
-		while (j < sht.size()) {
-			cart = cart + sht.get(j).getQty();
-			j++;
+		
+		if (username.getUname() == null) {
+			//sht.add(shirt);
+			int j = 0;
+			int cart = 0;
+			sht.remove(i - 1);
+			while (j < sht.size()) {
+				cart = cart + sht.get(j).getQty();
+				j++;
+			}
+			
+			model.addObject("cart", cart);
+			
+		} else {
+			Main crt = new Main();
+			//String y;
+			ArrayList<Shirt> sht1 = new ArrayList<Shirt>();
+			
+		//	y = crt.AddtoCart(shirt, username.getUname());
+			try {
+				sht1 = crt.ShowCart(username.getUname());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			int j = 0;
+			i=sht1.size();
+			int cart = 0;
+			sht1.remove(i - 1);
+			while (j < sht1.size()) {
+				cart = cart + sht1.get(j).getQty();
+				j++;
+			}
+			model.addObject("cart", cart);
+			System.out.println("SIzeeeeee"+ sht1.size());
 		}
-		model.addObject("cart", cart);
-
 		// model = new ModelAndView("customize");
 		return model;
 	}
@@ -706,27 +761,60 @@ public class DesignController extends HttpServlet  {
 		HttpSession session = request.getSession();
 		// fabric=Fabric.AddFabric();
 		System.out.println(session);
-		String profile = reqPar.get("profile");
-		System.out.println(profile);
+		//String profile = reqPar.get("profile");
+		//System.out.println(profile);
 		ModelAndView model = null;
 		model = new ModelAndView("checkout");
 		model.setViewName("checkout");
-		model.addObject("list", sht);
-		int j = 0;
-		int cart = 0;
+		
+		if (username.getUname() == null) {
+			//sht.add(shirt);
+			int j = 0;
+			int cart = 0;
+			while (j < sht.size()) {
+				cart = cart + sht.get(j).getQty();
+				j++;
+			}
+			model.addObject("cart", cart);
+			for (int i = 0; i < sht.size(); i++) {
+				System.out.println(sht.get(i).body + sht.get(i).outercollar);
+			}
+		} else {
+			Main crt = new Main();
+			String y;
+			ArrayList<Shirt> sht1 = new ArrayList<Shirt>();
+			
+		//	y = crt.AddtoCart(shirt, username.getUname());
+			try {
+				sht1 = crt.ShowCart(username.getUname());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			int j = 0;
+			int cart = 0;
+			while (j < sht1.size()) {
+				cart = cart + sht1.get(j).getQty();
+				j++;
+			}
+			model.addObject("cart", cart);
+			model.addObject("list", sht1);
+			System.out.println("SIzeeeeee"+ sht.size());
 		int amount = 0;
 		int price = 0;
-		while (j < sht.size()) {
-			cart = cart + sht.get(j).getQty();
-			amount = amount + (sht.get(j).getQty() * sht.get(j).getPrice());
+		while (j < sht1.size()) {
+			cart = cart + sht1.get(j).getQty();
+			amount = amount + (sht1.get(j).getQty() * sht1.get(j).getPrice());
 			j++;
 		}
 		model.addObject("amount", amount);
 		model.addObject("cart", cart);
-		model.addObject("profile", profile);
+		//model.addObject("profile", profile);
+		}
 
 		return model;
 	}
+	
 
 	@RequestMapping(value = "/checkout{someID}", method = RequestMethod.POST)
 	public ModelAndView checkoutget(@RequestParam Map<String, String> reqPar,
@@ -766,7 +854,8 @@ public class DesignController extends HttpServlet  {
 
 		return model;
 	}
-
+	
+	
 	
 	}
 

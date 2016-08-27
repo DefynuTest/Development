@@ -88,7 +88,7 @@
 
   <input type="submit" id="change-btn" class="btn btn-fill btn-large btn-margin-right" value="change"> 
 </form>
-<form align="right" action="/Defynu/continueshopping?body=${shirt}&outercollar=${OuterCollar}&innercollar=${InnerCollar}&outercuff=${OuterCuff}&innercuff=${InnerCuff}&button=${Button}&buttonplacket=1&outsidefastening=${OutsideFastening}" method="post" target="_self">
+<form align="right" action="/Defynu/continueshopping?body=${shirt}&outercollar=${OuterCollar}&innercollar=${InnerCollar}&outercuff=${OuterCuff}&innercuff=${InnerCuff}&button=${Button}&buttonplacket=1&outsidefastening=${OutsideFastening}&price=${Price}&pocket=${Pocket}" method="post" target="_self">
 
   <input type="submit" id="continue-btn" class="btn btn-fill btn-large btn-margin-right" value="continue shoping">
 </form>

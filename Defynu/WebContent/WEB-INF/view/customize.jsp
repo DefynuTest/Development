@@ -646,10 +646,10 @@ function loadDoc(url) {
 			<div id="innercollar"><img src="resources/innercollar/innercollar${InnerCollar}.png"></div>
 			<div id="outercollar"><img src="resources/outercollar/outercollar${OuterCollar}.png"></div>
 			<div id="pocket"><img src="resources/pocket/pocket${Pocket}.png"></div>
-			<form action= "/Defynu/addtocart?body=${shirt}&outercollar=${OuterCollar}&innercollar=${InnerCollar}&outercuff=${OuterCuff}&innercuff=${InnerCuff}&button=${Button}&buttonplacket=${ButtonPlacket}&outsidefastening=${OutsideFastening}&price=${Price}">
+			<form action= "/Defynu/addtocart?body=${shirt}&outercollar=${OuterCollar}&innercollar=${InnerCollar}&outercuff=${OuterCuff}&innercuff=${InnerCuff}&button=${Button}&buttonplacket=${ButtonPlacket}&outsidefastening=${OutsideFastening}&price=${Price}&pocket=${Pocket}">
 			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><input id="atc" type="submit" formmethod =  "POST" value = "Add to Cart"></form> <br><br><br><br><br><br><br>
 
-<button id="atc" onclick="loadDoc('/Defynu/designa?body=1&outercollar=1&innercollar=1&outercuff=1&innercuff=1&button=1&buttonplacket=1&outsidefastening=1&price=800&pocket=1')">Reset</button> 
+<button id="atc" onclick="loadDoc('/Defynu/designa?body=1&outercollar=bc1&innercollar=1&outercuff=sb1&innercuff=1&button=1&buttonplacket=1&outsidefastening=1&pocket=sp1&price=800')">Reset</button> 
 		</div>
 	 
 		 

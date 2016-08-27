@@ -17,17 +17,17 @@ public class SendEmail {
 
       // Sender's email ID needs to be mentioned
       String from = "mail@defynu.com";
-      final String username = "mithilesh";//change accordingly
-      final String password = "mithi@TCS.123";//change accordingly
+      final String username = "mithileshcrj@gmail.com";//change accordingly
+      final String password = "mithi.nit.123";//change accordingly
 
       // Assuming you are sending email through relay.jangosmtp.net
-      String host = "relay.jangosmtp.net";
+      String host = "smtp.gmail";
 
       Properties props = new Properties();
       props.put("mail.smtp.auth", "true");
       props.put("mail.smtp.starttls.enable", "true");
       props.put("mail.smtp.host", host);
-      props.put("mail.smtp.port", "25");
+      props.put("mail.smtp.port", "465");
 
       // Get the Session object.
       Session session = Session.getInstance(props,
