@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.defynu.Dao.MeasurementDao;
 import com.defynu.Model.Fabric;
-import com.defynu.Model.SessionVariable;
 import com.defynu.Model.Shirt;
 import com.defynu.Model.ShirtDetails;
 import com.defynu.Services.Main;
@@ -24,21 +24,23 @@ import com.defynu.Services.Main;
 
 @Controller
 @Scope("session")
-public class DesignController extends HttpServlet  {
+public class DesignController extends HttpServlet {
 
 	
-	ArrayList<Shirt> sht = new ArrayList<Shirt>();
+ ArrayList<Shirt> sht = new ArrayList<Shirt>();
+ 
 	Fabric fabric = new Fabric();
 	Shirt s1 = new Shirt();
 	ShirtDetails details= new ShirtDetails();
-	SessionVariable username = new SessionVariable() ;
+	
 	ArrayList<Fabric> fablist = new ArrayList<Fabric>();
 	
 
 	@RequestMapping(value = "/design{someID}", method = RequestMethod.GET)
-	public ModelAndView design(@RequestParam Map<String,String> reqPar){
-
+	public ModelAndView design(@RequestParam Map<String,String> reqPar, HttpServletRequest request, HttpServletResponse response){
+		HttpSession session=request.getSession(false); 
 		//Shirt shirt=new Shirt();
+		session.setAttribute("shirt", s1);
 
 		String body = reqPar.get("body");
 		s1.setBody(body);  
@@ -78,8 +80,8 @@ public class DesignController extends HttpServlet  {
 		model.addObject("Price", s1.getPrice());
 		int j = 0;
 		int cart = 0;
-
-		if (username.getUname() == null) {
+		System.out.println("unmae"+ session.getAttribute("email"));
+		if (session.getAttribute("email") == null) {
 			while (j < sht.size()) {
 				cart = cart + sht.get(j).getQty();
 				j++;
@@ -99,7 +101,7 @@ public class DesignController extends HttpServlet  {
 			System.out.println("Hi" + sht.size());
 			while (i < sht.size()) {
 				try {
-					y = crt.AddtoCart(sht.get(i), username.getUname());
+					y = crt.AddtoCart(sht.get(i), request);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -107,7 +109,7 @@ public class DesignController extends HttpServlet  {
 				i++;
 			}
 			try {
-				sht1 = crt.ShowCart(username.getUname());
+				sht1 = crt.ShowCart(request);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -440,10 +442,10 @@ public class DesignController extends HttpServlet  {
 	/*****************************************************Add To Cart**************************************/
 
 	@RequestMapping(value = "/addtocart{someID}", method = RequestMethod.GET)
-	public ModelAndView getHomePage1(@RequestParam Map<String, String> reqPar) {
+	public ModelAndView getHomePage1(@RequestParam Map<String, String> reqPar,HttpServletRequest request, HttpServletResponse response) {
 		// Shirt shirt=new Shirt();
 		// ModelAndView model= null;
-
+		HttpSession session=request.getSession();
 		ModelAndView model = null;
 		model = new ModelAndView("hello");
 		model.setViewName("hello");
@@ -455,12 +457,14 @@ public class DesignController extends HttpServlet  {
 	public ModelAndView Addtocart(@RequestParam Map<String, String> reqPar,
 			HttpServletRequest request, HttpServletResponse response)
 					throws Exception {
-
-		HttpSession session = request.getSession(false);
+		
+		HttpSession session = request.getSession();
+		System.out.println("uname"+session.getAttribute("email") );
 		fablist = Fabric.AddFabric();
 		
 			session.setAttribute("cart", sht);
 			Shirt shirt = new Shirt();
+			shirt = (Shirt) session.getAttribute("shirt");
 			String body = reqPar.get("body");
 			shirt.setBody(body);
 			String outercollar = reqPar.get("outercollar");
@@ -482,6 +486,7 @@ public class DesignController extends HttpServlet  {
 			int qty = shirt.getQty() + 1;
 			shirt.setQty(qty);
 			shirt.setNo(sht.size() + 1);
+			System.out.println("Shirt no" +shirt.getNo());
 			
 			String cost = shirt.getBody();
 			fablist=fabric.AddFabric();
@@ -570,8 +575,8 @@ public class DesignController extends HttpServlet  {
 			model.addObject("outercollarname",collartype);
 			model.addObject("outercuffname",cufftype);
 			model.addObject("pocketname",ptype);
-			System.out.println("check" + username.getUname());
-			if (username.getUname() == null) {
+			//System.out.println("check" + username.getUname());
+			if (session.getAttribute("email") == null) {
 				sht.add(shirt);
 				int j = 0;
 				int cart = 0;
@@ -587,11 +592,16 @@ public class DesignController extends HttpServlet  {
 				Main crt = new Main();
 				String y;
 				ArrayList<Shirt> sht1 = new ArrayList<Shirt>();
+				sht1 = crt.ShowCart(session.getAttribute("email"));
+				shirt.setNo(sht1.size() + 1);
+				y = crt.AddtoCart(shirt, request);
+				MeasurementDao measurement = new MeasurementDao();
+				y= measurement.Addmeasurenet(request,shirt);
 				
-				y = crt.AddtoCart(shirt, username.getUname());
-				sht1 = crt.ShowCart(username.getUname());
+				System.out.println("shhhhittt"+ sht1.size()); 
+		
 				int j = 0;
-				int cart = 0;
+				int cart = 1;
 				while (j < sht1.size()) {
 					cart = cart + sht1.get(j).getQty();
 					j++;
@@ -613,6 +623,37 @@ public class DesignController extends HttpServlet  {
 		System.out.println(session);
 		ModelAndView model = null;
 		model = new ModelAndView("customize");
+		
+		
+		Shirt shirt = new Shirt();
+		String body = reqPar.get("body");
+		shirt.setBody(body);
+		String outercollar = reqPar.get("outercollar");
+		shirt.setOutercollar(outercollar);
+		String innercollar = reqPar.get("innercollar");
+		shirt.setInnercollar(innercollar);
+		String outercuff = reqPar.get("outercuff");
+		shirt.setOutercuff(outercuff);
+		String innercuff = reqPar.get("innercuff");
+		shirt.setInnercuff(innercuff);
+		String button = reqPar.get("button");
+		shirt.setButton(button);
+		String buttonplacket = reqPar.get("buttonplacket");
+		shirt.setButtonplacket(buttonplacket);
+		String outsidefastening = reqPar.get("outsidefastening");
+		shirt.setOutsidefastening(outsidefastening);
+		String pocket = reqPar.get("pocket");
+		shirt.setPocket(pocket);
+		int qty = shirt.getQty() + 1;
+		shirt.setQty(qty);
+		shirt.setNo(sht.size() + 1);
+		System.out.println("Shirt no" +shirt.getNo());
+		
+		String cost = shirt.getBody();
+		fablist=fabric.AddFabric();
+		int price = Integer.parseInt(cost);
+		shirt.setPrice(fablist.get(price-1).getPrice());
+		
 		model.addObject("shirt", "1");
 		model.addObject("Button", "1");
 		model.addObject("ButtonPlacket", "1");
@@ -625,7 +666,7 @@ public class DesignController extends HttpServlet  {
 		model.addObject("Price", "800");
 		
 		
-		if (username.getUname() == null) {
+		if (session.getAttribute("email") == null) {
 			//sht.add(shirt);
 			int j = 0;
 			int cart = 0;
@@ -643,7 +684,7 @@ public class DesignController extends HttpServlet  {
 			
 		//	y = crt.AddtoCart(shirt, username.getUname());
 			try {
-				sht1 = crt.ShowCart(username.getUname());
+				sht1 = crt.ShowCart(request);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -663,7 +704,8 @@ public class DesignController extends HttpServlet  {
 	
 	@RequestMapping(value = "/change{someID}", method = RequestMethod.POST)
 	public ModelAndView proceedtocheckout(
-			@RequestParam Map<String, String> reqPar) {
+			@RequestParam Map<String, String> reqPar,HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
 
 		Shirt shirt = new Shirt();
 
@@ -714,7 +756,7 @@ public class DesignController extends HttpServlet  {
 		model.addObject("Price", shirt.getPrice());
 		int i = sht.size();
 		
-		if (username.getUname() == null) {
+		if (session.getAttribute("email") == null) {
 			//sht.add(shirt);
 			int j = 0;
 			int cart = 0;
@@ -733,7 +775,7 @@ public class DesignController extends HttpServlet  {
 			
 		//	y = crt.AddtoCart(shirt, username.getUname());
 			try {
-				sht1 = crt.ShowCart(username.getUname());
+				sht1 = crt.ShowCart(request);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -767,7 +809,7 @@ public class DesignController extends HttpServlet  {
 		model = new ModelAndView("checkout");
 		model.setViewName("checkout");
 		
-		if (username.getUname() == null) {
+		if (session.getAttribute("email") == null) {
 			//sht.add(shirt);
 			int j = 0;
 			int cart = 0;
@@ -775,6 +817,7 @@ public class DesignController extends HttpServlet  {
 				cart = cart + sht.get(j).getQty();
 				j++;
 			}
+			model.addObject("list", sht);
 			model.addObject("cart", cart);
 			for (int i = 0; i < sht.size(); i++) {
 				System.out.println(sht.get(i).body + sht.get(i).outercollar);
@@ -786,7 +829,7 @@ public class DesignController extends HttpServlet  {
 			
 		//	y = crt.AddtoCart(shirt, username.getUname());
 			try {
-				sht1 = crt.ShowCart(username.getUname());
+				sht1 = crt.ShowCart(request);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

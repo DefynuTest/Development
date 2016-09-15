@@ -17,25 +17,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-
-
-
-
 import com.defynu.Services.Main;
 import com.defynu.Services.SendEmail;
 import com.defynu.Dao.LoginDao;
 import com.defynu.Dao.RegisterDao;
-import com.defynu.Model.SessionVariable;
+
 import com.defynu.Model.User;
 import com.defynu.Model.Shirt;
 
 
 @Controller
 @Scope("session") 
-public class LoginController extends HttpServlet  {
+public class LoginController extends HttpServlet{
 
 	ArrayList<Shirt> sht = new ArrayList<Shirt>();
-	SessionVariable username =new SessionVariable();
+	
+	String uname;
 	
 	Logger log= Logger.getLogger(LoginController.class.getName()); 
 
@@ -61,8 +58,11 @@ public class LoginController extends HttpServlet  {
 		log.info("Email is:"+email);
 		log.info("Password is:"+password);
 		boolean result=false;
-		username.setUname(email);
-		session.setAttribute(email, session);
+		uname=email;
+		//session.setAttribute(email, username);
+		
+		System.out.println("hhhhhhhh"+uname);
+		session.setAttribute("email", email);
 
 		log.info(email+password);
 
@@ -80,12 +80,12 @@ public class LoginController extends HttpServlet  {
 		if(result)
 		{		 model = new ModelAndView("hello");
 		log.info("User Login Successful");
-		model.addObject("loggedInUser", user.getEmail());
-		model.addObject("uname",session.getAttribute(email));
+		model.addObject("loggedInUser", email);
+		model.addObject("uname",session.getAttribute("email"));
 
 		Main crt= new Main();
 		ArrayList<Shirt> sht1 = new ArrayList<Shirt>();
-		sht1=crt.ShowCart(username.getUname());
+		sht1=crt.ShowCart(uname);
 		System.out.println("sht1 ka size" + sht1.size());
 		int j=0;
 		int cart =0;
@@ -124,7 +124,7 @@ public class LoginController extends HttpServlet  {
 			String y;
 			ArrayList<Shirt> sht1 = new ArrayList<Shirt>();
 
-			sht1=crt.ShowCart(username.getUname());
+			//sht1=crt.ShowCart(username.getUname());
 			System.out.println("sht1 ka size" + sht1.size());
 			int j=0;
 			int cart =0;
@@ -150,13 +150,13 @@ public class LoginController extends HttpServlet  {
 			System.out.println(session1); 
 			model = new ModelAndView("hello");
 			System.out.println("User Login Successful");
-			model.addObject("loggedInUser", username.getUname());
+			model.addObject("loggedInUser",session.getAttribute("email") );
 
 			Main crt= new Main();
 			String y;
 			ArrayList<Shirt> sht1 = new ArrayList<Shirt>();
 			//	y=crt.AddtoCart(shirt,uname);
-			sht1=crt.ShowCart(username.getUname());
+			//sht1=crt.ShowCart(eid.get());
 			System.out.println("sht1 ka size" + sht1.size());
 			int j=0;
 			int cart =0;

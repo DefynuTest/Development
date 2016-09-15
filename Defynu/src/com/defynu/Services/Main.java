@@ -14,6 +14,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import com.defynu.Model.DatabaseUtilProperties;
 
 
@@ -23,7 +27,8 @@ import oracle.sql.BLOB;
 
 public class Main {
 	//private static final long serialVersionUID = -4793787067294496684L;
-  public String AddtoCart(Shirt shirt,String uname) throws Exception {
+	
+  public String AddtoCart(Shirt shirt,HttpServletRequest request) throws Exception {
     String WRITE_OBJECT_SQL = "BEGIN "
         + "  INSERT INTO java_objects(object_id, object_value) "
         + "  VALUES (?, empty_blob()) " + "  RETURN object_value INTO ?; " + "END;";
@@ -35,10 +40,13 @@ public class Main {
 		con.setAutoCommit(false);
     List<Shirt> list = new ArrayList<Shirt>();
     list.add(shirt);
-  
+    
+    HttpSession session=request.getSession(true);
+    System.out.println("session"+ session.getAttribute("email"));
+    
     // write object to Oracle
-    String id = uname;
-   // String className = list.getClass().getName();
+    String id = (String) session.getAttribute("email");
+  // String className = list.getClass().getName();
     CallableStatement cstmt = con.prepareCall(WRITE_OBJECT_SQL);
 
     cstmt.setString(1,id);
@@ -68,10 +76,10 @@ public class Main {
      return y;
     
  }
-    public ArrayList<Shirt> ShowCart(String uname) throws Exception {
+    public ArrayList<Shirt> ShowCart(Object object2) throws Exception {
  
         String READ_OBJECT_SQL = "SELECT object_value FROM java_objects WHERE object_id = ?";
-        String id = uname;
+        String id = (String) object2;
         
     		DatabaseUtilProperties dataSource=new DatabaseUtilProperties();
     		Connection con=dataSource.getDBConfig();

@@ -85,6 +85,21 @@ margin-left:90px;
   background-color:  #99004d;
   
   }
+  #measurement-btn
+ {
+    background-color:#b3003b;
+    border: none;
+    color: white;
+    padding: 10px 22px;
+    text-align: center;
+    text-decoration: none;
+    float:right;
+    font-size: 16px;
+    cursor: pointer;
+
+
+
+ }
 
 /*--------------------------------------------------------------------*/
 #bacground 
@@ -94,7 +109,7 @@ margin-left:90px;
 	 position: relative; 
 	 margin-left: auto; 
 	 margin-right: auto;	
-	 overflow: hidden;
+	 overflow: scroll;
 	 z-index:0;
 	} 
 
@@ -233,7 +248,7 @@ body {
 	color: #b1aea6;
 	background: #fffcf5;
 	min-height: 800px;
-	overflow:hidden;
+	overflow:scroll;
 }
 
 a {

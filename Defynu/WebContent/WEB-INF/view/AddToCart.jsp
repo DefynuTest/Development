@@ -83,16 +83,19 @@
 		<h4>Collar Type:&nbsp;${outercollarname}</h4>
 		<h4>Pocket Type:&nbsp;${pocketname}</h4>
 		<h4>INR:${Price}</h4>
+		<button type="submit" class="btn btn-primary btn-xs" formaction="/CottonCaress/measurement" name= "object" value= >Update Measuremensts</button>&nbsp;
+		
 		</div>
 		<form align="right" action="/Defynu/change?body=${shirt}&outercollar=${OuterCollar}&innercollar=${InnerCollar}&outercuff=${OuterCuff}&innercuff=${InnerCuff}&button=${Button}&buttonplacket=${ButtonPlacket}&outsidefastening=${OutsideFastening}&price=${Price}&pocket=${Pocket}" method="post" target="_self">
 
   <input type="submit" id="change-btn" class="btn btn-fill btn-large btn-margin-right" value="change"> 
 </form>
-<form align="right" action="/Defynu/continueshopping?body=${shirt}&outercollar=${OuterCollar}&innercollar=${InnerCollar}&outercuff=${OuterCuff}&innercuff=${InnerCuff}&button=${Button}&buttonplacket=1&outsidefastening=${OutsideFastening}&price=${Price}&pocket=${Pocket}" method="post" target="_self">
+
+<form align="right" action="/Defynu/continueshopping?body=${shirt}&outercollar=${OuterCollar}&innercollar=${InnerCollar}&outercuff=${OuterCuff}&innercuff=${InnerCuff}&button=${Button}&buttonplacket=1&outsidefastening=${OutsideFastening}" method="post" target="_self">
 
   <input type="submit" id="continue-btn" class="btn btn-fill btn-large btn-margin-right" value="continue shoping">
 </form>
-<form align="right" action="/Defynu/checkout" method="GET" target="_self">
+<form align="right" action="/Defynu/checkout?amount=10.00&firstname=mithilesh&email=mithileshcrj@gmail.com&phone=9163086037&productinfo=shirt1&surl=http://localhost/Defynu/&furl=http://localhost/Defynu/" method="GET" target="_self">
 
   <input type="submit" id="proceed-btn"  class="btn btn-fill btn-large btn-margin-right" value="proceedtocheckout" align="right">
 </form>
@@ -105,7 +108,7 @@
                     <div class="footer-links">	  
                         <ul class="footer-group">
                              <li><a href="#">Blog</a></li>
-                            <li><a href="#"></a></li>
+                            <!-- <li><a href="#"></a></li> -->
                             <li><a href="#">Sign up</a></li>
                             <li><a href="">How It Works</a></li>
                             
